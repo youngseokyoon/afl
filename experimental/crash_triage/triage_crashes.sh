@@ -25,8 +25,10 @@
 echo "crash triage utility for afl-fuzz by <lcamtuf@google.com>"
 echo
 
-ulimit -v 100000 2>/dev/null
-ulimit -d 100000 2>/dev/null
+# workaround 
+# /build/gdb-GT4MLW/gdb-8.1/gdb/utils.c:778: internal-error: virtual memory exhausted: can't allocate 1671168 bytes.
+#ulimit -v 100000 2>/dev/null
+#ulimit -d 100000 2>/dev/null
 
 if [ "$#" -lt "2" ]; then
   echo "Usage: $0 /path/to/afl_output_dir /path/to/tested_binary [...target params...]" 1>&2
@@ -91,10 +93,10 @@ for crash in $DIR/crashes/id:*; do
   for a in $@; do
 
     if [ "$a" = "@@" ] ; then
-      args="$use_args $crash"
+      use_args="$use_args $crash"
       unset use_stdio
     else
-      args="$use_args $a"
+      use_args="$use_args $a"
     fi
 
   done
