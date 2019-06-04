@@ -27,8 +27,8 @@ echo
 
 # workaround 
 # /build/gdb-GT4MLW/gdb-8.1/gdb/utils.c:778: internal-error: virtual memory exhausted: can't allocate 1671168 bytes.
-#ulimit -v 100000 2>/dev/null
-#ulimit -d 100000 2>/dev/null
+ulimit -v unlimited 2>/dev/null
+ulimit -d unlimited 2>/dev/null
 
 if [ "$#" -lt "2" ]; then
   echo "Usage: $0 /path/to/afl_output_dir /path/to/tested_binary [...target params...]" 1>&2
